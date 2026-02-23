@@ -102,6 +102,9 @@ apt remove os-prober
 ```
   
   
+- Reboot durchführen  
+  
+  
 ```
 auto lo
 iface lo inet loopback
