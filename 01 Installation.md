@@ -47,8 +47,8 @@ iface ens6 inet static
   
 ## Installation von Proxmox VE 9 auf Debian 13 Trixie:  
 
-Per SSH dem Debian-System anmelden und Proxmox VE installieren.  
-Dazu fügen wir das Proxmox-VE-Repository hinzu, indem wir die Proxmox-VE-Repository-Quellen im bevorzugten deb822-Format eintragen:  
+- Per SSH dem Debian-System anmelden und Proxmox VE installieren.  
+- Dazu fügen wir das Proxmox-VE-Repository hinzu, indem wir die Proxmox-VE-Repository-Quellen im bevorzugten deb822-Format eintragen:  
 ```
 cat > /etc/apt/sources.list.d/pve-install-repo.sources << EOL
 Types: deb
@@ -60,43 +60,43 @@ EOL
 ```
   
   
-Proxmox-VE-Repository-Schlüssel als root hinzufügen:
+- Proxmox-VE-Repository-Schlüssel als root hinzufügen:
 ```
 wget https://enterprise.proxmox.com/debian/proxmox-archive-keyring-trixie.gpg -O /usr/share/keyrings/proxmox-archive-keyring.gpg
 ```
 
-Aktualisieren der Repositories und des Systems:
+- Aktualisieren der Repositories und des Systems:
 ```
 apt update && apt full-upgrade
 ```
 
-Proxmox-VE-Kernel installieren und damit booten, da einige Pakete voraussetzen, dass bestimmte Kernel-Kompilier-Optionen gesetzt sind oder Kernel-Erweiterungen verfügbar sind:
+- Proxmox-VE-Kernel installieren und damit booten, da einige Pakete voraussetzen, dass bestimmte Kernel-Kompilier-Optionen gesetzt sind oder Kernel-Erweiterungen verfügbar sind:
 ```
 apt install proxmox-default-kernel
 ```
 
-Neustarten:
+- Neustarten:
 ```
 systemctl reboot
 ```
 
-Installieren der Proxmox-VE-Pakete:
+- Installieren der Proxmox-VE-Pakete:
 ```
 apt install proxmox-ve postfix open-iscsi chrony
 ```
 
-Entfernen des Standard-Kernel von Debian, um den Proxmox-Kernel zu benutzen:
+- Entfernen des Standard-Kernel von Debian, um den Proxmox-Kernel zu benutzen:
 ```
 apt remove linux-image-amd64 'linux-image-6.12*'
 ```
 
-Aktualisieren des GRUB2-Bootloader und anschließende Überprüfung der Konfiguration. Das ist wichtig, damit das System sauber mit dem neuen Kernel startet:
+- Aktualisieren des GRUB2-Bootloader und anschließende Überprüfung der Konfiguration. Das ist wichtig, damit das System sauber mit dem neuen Kernel startet:
 ```
 update-grub
 ```
 
-Das Paket os-prober entfernen.  
-Dieses kleine Tool durchsucht beim Boot-Konfigurationsprozess alle vorhandenen Partitionen und legt automatisch Einträge für ein mögliches Dual-Boot-System an.
+- Das Paket os-prober entfernen.
+  Dieses kleine Tool durchsucht beim Boot-Konfigurationsprozess alle vorhandenen Partitionen und legt automatisch Einträge für ein mögliches Dual-Boot-System an.
 ```
 apt remove os-prober
 ```
