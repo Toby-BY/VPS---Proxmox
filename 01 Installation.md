@@ -28,3 +28,44 @@ Falls nicht starten wir mit Debian Minimal:
 - Neustart durchführen und dann als root anmelden
 - nano /etc/ssh/sshd_config öffnen, PermitRootLogin yes setzen und systemctl restart ssh ausführen
 - nano /etc/network/interfaces öffnen und anpassen, von:
+
+'''
+source /etc/network/interfaces.d/*
+
+auto lo
+iface lo inet loopback
+
+auto ens6
+iface ens6 inet manual
+#IONOS
+
+auto vmbr0
+iface vmbr0 inet static
+        address 217.154.74.243/32
+        gateway 217.154.74.1
+        post-up   echo 1 > /proc/sys/net/ipv4/ip_forward
+        post-up iptables -t nat -A PREROUTING -i vmbr0 -p tcp -m multiport ! --dport 22,8006 -j DNAT --to 10.10.1.2
+        post-up iptables -t nat -A PREROUTING -i vmbr0 -p udp -j DNAT --to 10.10.1.2
+        bridge-ports ens6
+        bridge-stp off
+        bridge-fd 0
+#IONOS
+
+auto vmbr1
+iface vmbr1 inet static
+        address 10.10.1.1/30
+        post-up   iptables -t nat -A POSTROUTING -s '10.10.1.0/30' -o vmbr0 -j MASQUERADE
+        post-down iptables -t nat -D POSTROUTING -s '10.10.1.0/30' -o vmbr0 -j MASQUERADE
+        bridge-ports none
+        bridge-stp off
+        bridge-fd 0
+#OPNsense WAN
+
+auto vmbr2
+iface vmbr2 inet static
+        address 10.11.1.100/24
+        bridge-ports none
+        bridge-stp off
+        bridge-fd 0
+#LAN 1
+'''
