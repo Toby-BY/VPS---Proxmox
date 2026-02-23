@@ -48,7 +48,7 @@ iface ens6 inet static
 ## Installation von Proxmox VE 9 auf Debian 13 Trixie:  
 
 - Per SSH dem Debian-System anmelden und Proxmox VE installieren.  
-- Dazu fügen wir das Proxmox-VE-Repository hinzu, indem wir die Proxmox-VE-Repository-Quellen im bevorzugten deb822-Format eintragen:  
+  Dazu fügen wir das Proxmox-VE-Repository hinzu, indem wir die Proxmox-VE-Repository-Quellen im bevorzugten deb822-Format eintragen:  
 ```
 cat > /etc/apt/sources.list.d/pve-install-repo.sources << EOL
 Types: deb
