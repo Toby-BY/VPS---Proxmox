@@ -27,11 +27,22 @@ Falls nicht starten wir mit Debian Minimal:
 - Softwareauswahl, nur SSH-Server und nur Standard-Systemwerkzeuge installieren
 - Neustart durchführen und dann als root anmelden
 - nano /etc/ssh/sshd_config öffnen, PermitRootLogin yes setzen und systemctl restart ssh ausführen
-- nano /etc/network/interfaces öffnen und anpassen:
-
+- nano /etc/network/interfaces öffnen und anpassen (evtl. können die Adressen auch per DHCP bezogen werden):  
+  
 ```
-source /etc/network/interfaces.d/*
+auto lo
+iface lo inet loopback
+auto ens6
+iface ens6 inet static
+        address 217.154.74.243/32  # Die IPv4 des Servers
+        gateway 192.168.2.1        # Die Gateway-Adresse des Servers
+        dns-nameservers 8.8.8.8    # DNS-Server vorübergehend auf google
+```
 
+- Reboot durchführen
+  
+  
+```
 auto lo
 iface lo inet loopback
 
