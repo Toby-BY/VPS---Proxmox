@@ -39,7 +39,61 @@ iface ens6 inet static
         dns-nameservers 8.8.8.8    # DNS-Server vorübergehend auf google
 ```
 
-- Reboot durchführen
+- Reboot durchführen  
+  
+## Installation von Proxmox VE 9 auf Debian 13 Trixie:  
+
+Wenn Sie per SSH auf Ihrem Debian-System angemeldet sind, installieren Sie Proxmox VE.  
+Fügen Sie das Proxmox-VE-Repository hinzu, indem Sie die Proxmox-VE-Repository-Quellen im bevorzugten deb822-Format eintragen:  
+```
+cat > /etc/apt/sources.list.d/pve-install-repo.sources << EOL
+Types: deb
+URIs: http://download.proxmox.com/debian/pve
+Suites: trixie
+Components: pve-no-subscription
+Signed-By: /usr/share/keyrings/proxmox-archive-keyring.gpg
+EOL
+```
+  
+  
+Fügen Sie den Proxmox-VE-Repository-Schlüssel als root hinzu:
+```
+wget https://enterprise.proxmox.com/debian/proxmox-archive-keyring-trixie.gpg -O /usr/share/keyrings/proxmox-archive-keyring.gpg
+```
+
+Aktualisieren Sie Ihr Repository und Ihr System, indem Sie Folgendes ausführen:
+```
+apt update && apt full-upgrade
+```
+
+Zuerst müssen Sie den Proxmox-VE-Kernel installieren und damit booten, da einige Pakete voraussetzen, dass bestimmte Kernel-Kompilier-Optionen gesetzt sind oder Kernel-Erweiterungen verfügbar sind:
+```
+apt install proxmox-default-kernel
+```
+
+Neustarten:
+```
+systemctl reboot
+```
+
+Jetzt geht es endlich richtig los, installieren Sie die Proxmox-VE-Pakete:
+```
+apt install proxmox-ve postfix open-iscsi chrony
+```
+
+Entfernen des Standard-Kernel von Debian, um den Proxmox-Kernel zu benutzen:
+```
+apt remove linux-image-amd64 'linux-image-6.12*'
+```
+
+Aktualisieren Sie danach den GRUB2-Bootloader und prüfen Sie die Konfiguration. Das ist wichtig, damit das System sauber mit dem neuen Kernel startet:
+```
+update-grub
+```
+
+Bitte das Paket os-prober entfernen. Dieses kleine Tool durchsucht beim Boot-Konfigurationsprozess alle vorhandenen Partitionen und legt automatisch Einträge für ein mögliches Dual-Boot-System an. Das klingt nett, führt aber schnell zu Chaos, weil dabei auch Festplatten von virtuellen Maschinen als Boot-Systeme erkannt werden können – und die haben im GRUB-Menü wirklich nichts zu suchen.
+apt remove os-prober
+
   
   
 ```
