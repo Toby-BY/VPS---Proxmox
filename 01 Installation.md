@@ -29,7 +29,7 @@ Falls nicht starten wir mit Debian Minimal:
 - nano /etc/ssh/sshd_config öffnen, PermitRootLogin yes setzen und systemctl restart ssh ausführen
 - nano /etc/network/interfaces öffnen und anpassen, von:
 
-'''
+´´´
 source /etc/network/interfaces.d/*
 
 auto lo
@@ -68,4 +68,4 @@ iface vmbr2 inet static
         bridge-stp off
         bridge-fd 0
 #LAN 1
-'''
+´´´
