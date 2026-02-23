@@ -27,7 +27,7 @@ Falls nicht starten wir mit Debian Minimal:
 - Softwareauswahl, nur SSH-Server und nur Standard-Systemwerkzeuge installieren
 - Neustart durchführen und dann als root anmelden
 - nano /etc/ssh/sshd_config öffnen, PermitRootLogin yes setzen und systemctl restart ssh ausführen
-- nano /etc/network/interfaces öffnen und anpassen, von:
+- nano /etc/network/interfaces öffnen und anpassen:
 
 ```
 source /etc/network/interfaces.d/*
