@@ -36,9 +36,9 @@ auto lo
 iface lo inet loopback
 auto ens6
 iface ens6 inet static
-        address 217.154.74.243/32  # Die IPv4 des Servers
-        gateway 192.168.2.1        # Die Gateway-Adresse des Servers
-        dns-nameservers 8.8.8.8    # DNS-Server vorübergehend auf google
+        address XXX.XXX.XX.XXX/32   # Die IPv4 des Servers
+        gateway XXX.XXX.XX.1        # Die Gateway-Adresse des Servers
+        dns-nameservers 8.8.8.8     # DNS-Server vorübergehend auf google
 ```
   
 - Reboot durchführen  
@@ -112,8 +112,8 @@ iface ens6 inet manual
 
 auto vmbr0
 iface vmbr0 inet static
-        address 217.154.74.243/32
-        gateway 217.154.74.1
+        address XXX.XXX.XX.XXX/32   # Die IPv4 des Servers
+        gateway XXX.XXX.XX.1        # Die Gateway-Adresse des Servers
         post-up   echo 1 > /proc/sys/net/ipv4/ip_forward
         post-up iptables -t nat -A PREROUTING -i vmbr0 -p tcp -m multiport ! --dport 22,8006 -j DNAT --to 10.10.1.2
         post-up iptables -t nat -A PREROUTING -i vmbr0 -p udp -j DNAT --to 10.10.1.2
