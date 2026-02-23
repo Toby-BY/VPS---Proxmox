@@ -14,9 +14,9 @@ Datenträger:  120 GB NVMe SSD
 Als Basis dient entweder Proxmox direkt, falls das Image beim Hoster geladen werden kann.  
 Falls nicht starten wir mit Debian Minimal:  
 
-Grafische Installation starten.
-Sprache Deutsch auswählen und bestätigen.
-WLAN einrichten, WPA-2 PSK nutzen.
+- Grafische Installation starten.
+- Sprache Deutsch auswählen und bestätigen.
+- WLAN einrichten, WPA-2 PSK nutzen.
 Rechnername vergeben, zum Beispiel pve-home-01.
 Domainname leer lassen.
 Root-Passwort setzen.
