@@ -8,14 +8,14 @@ Minimalanforderungen:
 CPU:          4 vCore  
 RAM:          4 GB  
 Datenträger:  120 GB NVMe SSD  
-
-
+  
+  
   
 ## Betriebssystem:  
-
+  
 Als Basis dient entweder Proxmox direkt, falls das Image beim Hoster geladen werden kann.  
 Falls nicht starten wir mit Debian Minimal:  
-
+  
 - Grafische Installation starten
 - Sprache Deutsch auswählen und bestätigen
 - WLAN einrichten, WPA-2 PSK nutzen
@@ -40,13 +40,13 @@ iface ens6 inet static
         gateway 192.168.2.1        # Die Gateway-Adresse des Servers
         dns-nameservers 8.8.8.8    # DNS-Server vorübergehend auf google
 ```
-
+  
 - Reboot durchführen  
-
-
+  
+  
   
 ## Installation von Proxmox VE 9 auf Debian 13 Trixie:  
-
+  
 - Per SSH dem Debian-System anmelden und Proxmox VE installieren.  
   Dazu fügen wir das Proxmox-VE-Repository hinzu, indem wir die Proxmox-VE-Repository-Quellen im bevorzugten deb822-Format eintragen:  
 ```
@@ -64,37 +64,37 @@ EOL
 ```
 wget https://enterprise.proxmox.com/debian/proxmox-archive-keyring-trixie.gpg -O /usr/share/keyrings/proxmox-archive-keyring.gpg
 ```
-
+  
 - Aktualisieren der Repositories und des Systems:
 ```
 apt update && apt full-upgrade
 ```
-
+  
 - Proxmox-VE-Kernel installieren und damit booten, da einige Pakete voraussetzen, dass bestimmte Kernel-Kompilier-Optionen gesetzt sind oder Kernel-Erweiterungen verfügbar sind:
 ```
 apt install proxmox-default-kernel
 ```
-
+  
 - Neustarten:
 ```
 systemctl reboot
 ```
-
+  
 - Installieren der Proxmox-VE-Pakete:
 ```
 apt install proxmox-ve postfix open-iscsi chrony
 ```
-
+  
 - Entfernen des Standard-Kernel von Debian, um den Proxmox-Kernel zu benutzen:
 ```
 apt remove linux-image-amd64 'linux-image-6.12*'
 ```
-
+  
 - Aktualisieren des GRUB2-Bootloader und anschließende Überprüfung der Konfiguration. Das ist wichtig, damit das System sauber mit dem neuen Kernel startet:
 ```
 update-grub
 ```
-
+  
 - Das Paket os-prober entfernen.
   Dieses kleine Tool durchsucht beim Boot-Konfigurationsprozess alle vorhandenen Partitionen und legt automatisch Einträge für ein mögliches Dual-Boot-System an.
 ```
