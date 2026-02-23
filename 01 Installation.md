@@ -9,6 +9,8 @@ CPU:          4 vCore
 RAM:          4 GB  
 Datenträger:  120 GB NVMe SSD  
 
+
+  
 ## Betriebssystem:  
 
 Als Basis dient entweder Proxmox direkt, falls das Image beim Hoster geladen werden kann.  
@@ -40,6 +42,8 @@ iface ens6 inet static
 ```
 
 - Reboot durchführen  
+
+
   
 ## Installation von Proxmox VE 9 auf Debian 13 Trixie:  
 
