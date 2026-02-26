@@ -106,6 +106,8 @@ apt remove os-prober
   
   
 ```
+source /etc/network/interfaces.d/*
+
 auto lo
 iface lo inet loopback
 
@@ -115,8 +117,8 @@ iface ens6 inet manual
 
 auto vmbr0
 iface vmbr0 inet static
-        address XXX.XXX.XX.XXX/32   # Die IPv4 des Servers
-        gateway XXX.XXX.XX.1        # Die Gateway-Adresse des Servers
+        address 217.154.74.243/32
+        gateway 217.154.74.1
         post-up   echo 1 > /proc/sys/net/ipv4/ip_forward
         post-up iptables -t nat -A PREROUTING -i vmbr0 -p tcp -m multiport ! --dport 22,8006 -j DNAT --to 10.10.1.2
         post-up iptables -t nat -A PREROUTING -i vmbr0 -p udp -j DNAT --to 10.10.1.2
@@ -138,9 +140,11 @@ iface vmbr1 inet static
 auto vmbr2
 iface vmbr2 inet static
         address 10.11.1.100/24
+        up ip route add 10.8.0.0/24 via 10.11.1.1 dev vmbr2   # Route VPN - ins LAN
         bridge-ports none
         bridge-stp off
         bridge-fd 0
 #LAN 1
+
 ```
 
